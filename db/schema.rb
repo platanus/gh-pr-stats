@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_121057) do
+ActiveRecord::Schema.define(version: 2021_07_14_212330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 2021_06_14_121057) do
     t.string "uid"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "assignation_metrics", force: :cascade do |t|
+    t.bigint "from", null: false
+    t.bigint "github_user_id", null: false
+    t.bigint "pull_request_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["github_user_id", "pull_request_id"], name: "index_metrics_on_ghuser_and_pr", unique: true
+    t.index ["github_user_id"], name: "index_assignation_metrics_on_github_user_id"
+    t.index ["pull_request_id"], name: "index_assignation_metrics_on_pull_request_id"
   end
 
   create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
@@ -262,6 +273,8 @@ ActiveRecord::Schema.define(version: 2021_06_14_121057) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assignation_metrics", "github_users"
+  add_foreign_key "assignation_metrics", "pull_requests"
   add_foreign_key "froggo_team_memberships", "froggo_teams"
   add_foreign_key "froggo_team_memberships", "github_users"
   add_foreign_key "likes", "github_users"
