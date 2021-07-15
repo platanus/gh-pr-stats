@@ -12,6 +12,8 @@ class PullRequest < ApplicationRecord
   has_many :pull_request_relations, dependent: :destroy
   has_many :pull_request_review_requests, dependent: :destroy
 
+  has_many :assignation_metric, dependent: :destroy
+
   scope :within_month_limit, -> do
     where('pull_requests.gh_updated_at > ?',
           Time.current - ENV['PULL_REQUEST_MONTH_LIMIT'].to_i.months)
