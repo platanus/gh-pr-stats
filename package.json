@@ -7,7 +7,7 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.1.1",
     "axios": "^0.21.1",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "coffeescript": "1.12.7",
     "humps": "^2.0.1",
     "lodash.chunk": "^4.2.0",
